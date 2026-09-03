@@ -1,0 +1,68 @@
+% ADC.STY  Astronomical Data Center Style File,
+\typeout{Document Style 'adc', <15 Mar 1993>, Astronomical Data Center,
+NASA/GSFC}
+%
+% Definition List:  A definition list is essentially the same as a description
+% list, except that there is a required argument specifying the indentation to
+% be used, and the list items are left-justified in the item columns, rather
+% than right-justified.
+%
+\newcommand{\definitionlabel}[1]{\bf #1\hfill}
+\newenvironment{definition}[1]{\begin{list}{}{\setlength{\labelwidth}{#1}
+\setlength{\leftmargin}{\labelwidth}\addtolength{\leftmargin}{\labelsep}
+\renewcommand{\makelabel}{\definitionlabel}}}{\end{list}}
+%
+% Reference List:  A list of references is formatted with no item label, the
+% first line of text flush left, and all subsequent lines in the reference
+% indented a few spaces to the right (like ApJ references).
+%
+\newenvironment{references}{\begin{list}{}{\setlength{\leftmargin}{3ex}
+\setlength{\itemindent}{-3ex} \setlength{\listparindent}{\itemindent}
+\setlength{\itemsep}{0pt} \setlength{\labelsep}{0pt}
+\setlength{\parsep}{1pt}}}{\end{list}}
+%
+% Titlepage: definition modified from titlepage.sty
+%
+\def\docauthor#1{\gdef\@docauthor{#1}}
+\def\docno#1{\gdef\@docno{#1}}
+\def\maketitle{\begin{titlepage}\setcounter{page}{0}
+\null\begin{center}{\LARGE \@title \par}
+\vskip 1em {\Large \lineskip .75em
+\begin{tabular}[t]{c}\@author\end{tabular}\par}
+\@ifundefined{@docauthor}{}{
+\vfil {\large Documentation for the Computer-Readable Version}
+\vskip 1em {\large \@docauthor \par}
+\vfil {\large Doc. No. \@docno \par}
+\vskip 2em {\large \@date \par}
+\vfil \begin{tabular}[b]{c}
+National Space Science Data Center (NSSDC)/ \\
+World Data Center A for Rockets and Satellites (WDC-A-R\&S) \\
+National Aeronautics and Space Administration \\
+Goddard Space Flight Center \\
+Greenbelt, Maryland 20771 \end{tabular}\par}
+\end{center} \par \end{titlepage}
+\let\docno\relax \let\docauthor\relax
+\gdef\@docno{}\gdef\@docauthor{}\gdef\@author{}\gdef\@title{}
+\let\maketitle\relax}
+%
+% Commands for special symbols.
+\newcommand{\degree}{$^\circ$}
+% Following commands are deprecated.  Future usage will not be supported.
+%
+% Commands for putting degrees, arcminutes, and arcseconds over
+% decimal points.  These commands must be used in math mode.
+%
+\newcommand{\degdot}{.\!\!^{\circ}\!}
+\newcommand{\mindot}{.\!^{\prime}}
+\newcommand{\secdot}{.\!\!^{\prime\prime}}
+%
+% Page margins
+%
+\oddsidemargin 0in
+\evensidemargin 0in
+\marginparwidth 0.25in
+\topmargin -.5in
+\parskip 11pt
+\parindent 0pt
+\textwidth 6.5in
+\textheight 8.5in
