@@ -29,7 +29,7 @@ and an azimuthal angle $\phi$.
 
 The constellation boundaries are specified in coordinates of right ascension $\alpha$ and declination $\delta$. These are
 essentially a kind of spherical coordinates, with an arbitrary radial distance.  Instead of a polar angle, declination is
-measured from the equator.
+measured from the equator, so that $\theta=\pi/2 - \delta$.  We set $\phi=\alpha$ with all angles in radians.
 
 Since we wish to compute the area within a boundary on the sphere, we utilize Stoke's theorem to convert the surface integral
 into a line integral along the constellation boundaries (\ref{eq:stokes}).
@@ -39,11 +39,11 @@ into a line integral along the constellation boundaries (\ref{eq:stokes}).
 	\label{eq:stokes}
 \end{equation}
 
-In order to utilize this, a vector field $\bvec{A}$ needs to be found such that $\nabla \times \bvec{A}$ has a constant radial
-component on the surface of the unit sphere.  Then, the line integral in (\ref{eq:stokes}) along the closed constellation
-boundaries will yield the surface area within.
+In order to utilize this to compute areas within arbitrary boundaries, a vector field $\bvec{A}$ needs to be found such that
+$\nabla \times \bvec{A}$ has a constant radial component on the surface of the unit sphere.  Then, the line integral in
+(\ref{eq:stokes}) along the closed constellation boundaries will be proportional to the surface area within.
 
-In spherical coordinates, the radial component of the curl is expressed as (\ref{eq:radialcurl}),
+In spherical coordinates, the radial component of the curl is expressed as
 
 \begin{equation}
 	\left( \nabla \times \bvec{A}  \right) \cdot \bvec{\hat{r}} = \frac{1}{r \sin\theta}
@@ -93,7 +93,7 @@ constellation boundaries, the sum of the constant-$\theta$ paths goes to zero, w
 constellations containing the north and south poles.
 
 The individual line integral terms due to (\ref{eq:choice1theta}) are computing areas from the path back to the $\phi=0$
-meridian.  This makes it tricky to properly account for constellations that cross over that line.
+meridian.  This makes it tricky to properly account for constellations that cross over $\phi=0$.
 
 Another choice for $\bvec{A}$ was then considered:
 
@@ -112,7 +112,7 @@ The constant-$\theta$ paths are evaluated as
 	\label{eq:choice2theta}
 \end{equation}
 
-And the constant-$\phi$ paths are conveniently always zero.
+and the constant-$\phi$ paths are conveniently always zero.
 
 With this choice for $\bvec{A}$ in (\ref{eq:choice2}), individual line integral segments of the boundaries are computing
 areas from the constant-$\theta$ paths down to the equator.  This works without major difficulties for all but two
@@ -126,14 +126,8 @@ $2\pi$ should be subtracted from the larger value of $\phi_1$ and $\phi_2$.
 
 \begin{thebibliography}{9}
 
-\bibitem{brink}
-M. Ebada, A. Elkelesh, S. Cammerer and S. ten Brink, "Scattered EXIT Charts for Finite Length LDPC Code Design," 2018 IEEE International Conference on Communications (ICC), Kansas City, MO, USA, 2018, pp. 1-7, doi: 10.1109/ICC.2018.8422961.
+\bibitem{vi49}
+Constellation Boundary Data: VI-49, http://cdsarc.u-strasbg.fr/viz-bin/cat/VI/49
 
-\bibitem{benedetto}
-Benedetto, Sergio, and Ezio Biglieri. Principles of Digital Transmission: With Wireless Applications. Kluwer Academic/Plenum Press, 1999.
-
-\bibitem{chugg}
-Chugg, Keith M., et al. Iterative Detection: Adaptivity, Complexity Reduction, and Applications. Kluwer Academic Publishers, 2001.
 \end{thebibliography}
-
 \end{document}
