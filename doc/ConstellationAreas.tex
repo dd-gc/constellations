@@ -1,0 +1,139 @@
+\documentclass[11pt]{article}
+
+\usepackage{amsmath, amsthm, amssymb}
+\usepackage{parskip}
+\usepackage{graphicx}
+\usepackage{listings}
+ \usepackage{bm}
+
+\DeclareMathOperator{\erfc}{erfc}
+\DeclareMathOperator{\Q}{Q}
+\newcommand{\bvec}[1]{\bm{#1}}
+
+\title{Computing the Areas of IAU Constellations}
+\author{Dale Dickerhoof}
+
+\date{\today}
+\begin{document}
+\maketitle
+
+\begin{abstract}
+The areas of the 88 constellations recognized by the International Astronomical Union (IAU) are computed
+through the use of Stoke's theorem.
+\end{abstract}
+
+\section{Formulation of the Problem}
+
+The computations here are carried out in a standard spherical coordinate system defined by a radial distance $r$, a polar angle $\theta$,
+and an azimuthal angle $\phi$.
+
+The constellation boundaries are specified in coordinates of right ascension $\alpha$ and declination $\delta$. These are
+essentially a kind of spherical coordinates, with an arbitrary radial distance.  Instead of a polar angle, declination is
+measured from the equator.
+
+Since we wish to compute the area within a boundary on the sphere, we utilize Stoke's theorem to convert the surface integral
+into a line integral along the constellation boundaries (\ref{eq:stokes}).
+
+\begin{equation}
+	\iint_S \left( \nabla \times \bvec{A} \right) \cdot d\bvec{S} = \oint_\ell \bvec{A} \cdot d\bvec{\ell}
+	\label{eq:stokes}
+\end{equation}
+
+In order to utilize this, a vector field $\bvec{A}$ needs to be found such that $\nabla \times \bvec{A}$ has a constant radial
+component on the surface of the unit sphere.  Then, the line integral in (\ref{eq:stokes}) along the closed constellation
+boundaries will yield the surface area within.
+
+In spherical coordinates, the radial component of the curl is expressed as (\ref{eq:radialcurl}),
+
+\begin{equation}
+	\left( \nabla \times \bvec{A}  \right) \cdot \bvec{\hat{r}} = \frac{1}{r \sin\theta}
+		\left(
+			\frac{\partial}{\partial \theta} \left( A_\phi \sin\theta \right) - \frac{\partial}{\partial\phi}A_\theta
+		\right).
+	\label{eq:radialcurl}
+\end{equation}
+
+\section{Evaluation of Candidate Vector Fields}
+
+Two different choices for suitable vector fields were evaluated. Only the $A_\theta$ and $A_\phi$ components need be specified,
+since $A_r$ does not appear in (\ref{eq:radialcurl}).
+
+One choice for $\bvec{A}$ is
+
+\begin{equation}
+\begin{split}
+	A_\phi &= \frac{1}{\sin\theta} \\
+	A_\theta &= -r \phi \sin\theta.
+	\label{eq:choice1}
+\end{split}
+\end{equation}
+
+It is easily shown that the radial component of the curl is unity on the unit sphere.
+
+The constellation boundaries for the 1875 epoch run along paths of constant $\theta$ and $\phi$ values. To evaluate
+the line integrals from (\ref{eq:stokes}), we also need to evaluate $d\bvec{\ell}$.  For the choice of $\bvec{A}$ in
+(\ref{eq:choice1}), paths with constant values of $\phi$ have $d\ell = r d\theta$, and can be evaluated as
+
+\begin{equation}
+	\int_{\theta_1}^{\theta_2}  \bvec{A} \cdot d\bvec{\ell} = r^2 \phi \left( \cos\theta_2 - \cos\theta_1 \right),
+	\label{eq:choice1theta}
+\end{equation}
+
+setting $r=1$.
+
+Similarly, paths of constant $\theta$ have $d\ell = r \sin\theta d\phi$, and can be evaluated as
+
+\begin{equation}
+	\int_{\phi_1}^{\phi_2} \bvec{A} \cdot d\bvec{\ell} = r \left( \phi_2 - \phi_1 \right).
+	\label{eq:choice1phi}
+\end{equation}
+
+Note that in (\ref{eq:choice1phi}), the line integral does not depend on $\theta$.  When integrating the closed
+constellation boundaries, the sum of the constant-$\theta$ paths goes to zero, with the exception of the
+constellations containing the north and south poles.
+
+The individual line integral terms due to (\ref{eq:choice1theta}) are computing areas from the path back to the $\phi=0$
+meridian.  This makes it tricky to properly account for constellations that cross over that line.
+
+Another choice for $\bvec{A}$ was then considered:
+
+\begin{equation}
+\begin{split}
+	A_\phi &= - \frac{\cos\theta}{\sin\theta} \\
+	A_\theta &= 0.
+	\label{eq:choice2}
+\end{split}
+\end{equation}
+
+The constant-$\theta$ paths are evaluated as
+
+\begin{equation}
+	\int_{\phi_1}^{\phi_2} A_\phi r \sin\theta d\phi = -r \cos\theta \left( \phi_2 - \phi_1 \right),
+	\label{eq:choice2theta}
+\end{equation}
+
+And the constant-$\phi$ paths are conveniently always zero.
+
+With this choice for $\bvec{A}$ in (\ref{eq:choice2}), individual line integral segments of the boundaries are computing
+areas from the constant-$\theta$ paths down to the equator.  This works without major difficulties for all but two
+constellations.  For the two constellations that contain the poles, the area computed
+is the area outside of the constellation to the equator, which is easily recified by the addition of the area of a half-
+sphere.
+
+The main complication that occurs in the evaluation of (\ref{eq:choice2theta}) for all constellations is that if $|\phi_2 - \phi_1| > \pi$,
+it means that the shortest path goes through $\phi=0$, since $0 \le \phi < 2\pi$.  To correctly evaluate the integral,
+$2\pi$ should be subtracted from the larger value of $\phi_1$ and $\phi_2$.
+
+\begin{thebibliography}{9}
+
+\bibitem{brink}
+M. Ebada, A. Elkelesh, S. Cammerer and S. ten Brink, "Scattered EXIT Charts for Finite Length LDPC Code Design," 2018 IEEE International Conference on Communications (ICC), Kansas City, MO, USA, 2018, pp. 1-7, doi: 10.1109/ICC.2018.8422961.
+
+\bibitem{benedetto}
+Benedetto, Sergio, and Ezio Biglieri. Principles of Digital Transmission: With Wireless Applications. Kluwer Academic/Plenum Press, 1999.
+
+\bibitem{chugg}
+Chugg, Keith M., et al. Iterative Detection: Adaptivity, Complexity Reduction, and Applications. Kluwer Academic Publishers, 2001.
+\end{thebibliography}
+
+\end{document}
