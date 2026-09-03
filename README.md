@@ -25,7 +25,7 @@ and also as a fraction of the total surface area.
 
 [Pixi](https://pixi.prefix.dev/latest/) is used to manage the environment dependencies.
 For this project the dependences are Python and tectonic for the Latex documentation.
-Once the repository is cloned, pixi install will install the dependencies into the local environment.
+Once the repository is cloned, ```pixi install``` will install the dependencies into the local environment.
 
 ## Results
 
