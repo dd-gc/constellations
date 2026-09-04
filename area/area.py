@@ -1,4 +1,8 @@
 #!/usr/bin/env python
+
+# Copyright 2026 Golden Communications LLC.  Mason, Ohio
+# MIT License
+
 from math import pi, sin
 
 
